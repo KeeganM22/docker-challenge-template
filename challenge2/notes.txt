@@ -1,0 +1,68 @@
+
+---workspace setup---
+
+start with making two folders: server for nodejs program and nginxconf for configuring the reverse proxy to use port 80 or 8080 instead of node default 3000
+
+---dockerfile for nodejs---
+
+start with making a dockerfile
+
+then since we are using a node server we will want to get the directory from node and use nodes latest version of alpine since its small
+
+then we will make a working directory being usr/src/app
+
+then we will copy the json package into our working directory
+
+then we will install node's stuff into the new directory
+
+then copy it all
+
+then we will run the command node server.js or in the docker CMD ['node', 'server.js']
+
+create dockerignore file to ignore files we don't want to pack such as gitignore node-modules and npm-debug.log 
+
+---configuring nginx---
+
+we need to make sure our port 8080 or 80 (depends on version used) will redirect to using 3000 which is the default for nodejs
+
+create a file with a .conf extension i called mine default
+
+in the conf file we will call the name of the nodejs folder and set all IP information to set the proxy up
+
+we redirect all the headers to our host's information before finally setting the redirect link that putting localhost:80/api/books would call
+
+(this is the only way I had found to work with redirecting nginx's IP if this is too complicated I would love to see another way)
+
+after creating the .conf file we need to create the separate dockerfile to handle packing nginx's information into a separate container used with the docker-compose file
+
+this file is very simple and only really is there to handle running the conf file. the two lines are "FROM nginx" and "COPY default.conf /etc/nginx/conf.d/default.conf"
+
+this makes a container base using nginx and then copies the conf file into the container.
+
+---docker-compose file---
+
+this is the main part of this whole thing.
+
+a docker compose file just allows for a automatic running of multiple containers.
+
+version control is now obsolete so we can start with writing services immediately.
+
+we will be using two services our nginx proxy and our nodejs server.
+
+for the server our build will have context in the folder 'server' at the path ./server
+
+and finally the ports its using are 3000:3000
+
+for nginx our build will have a context of 'nginxconf' at the path ./nginxconf
+
+and for nginx the ports will be 80:80
+
+---running the server---
+
+now that everything is configured we can now actually start the server
+
+navigate to the root folder of the project and type "docker-compose up --build" 
+
+this will call the docker compose file to run and build the two container nginx and server and keep them together
+
+now you can use the links to run the webpage (you might need to change it to 80 instead of 8080 depending on version)

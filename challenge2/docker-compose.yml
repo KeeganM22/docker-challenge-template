@@ -1,9 +1,11 @@
-name: Challenge 2
-price: 149
-is_published: true
-tags:
-  -software
-  -devops
-author:
-  fname: Keegan
-  lname: McLean
+  services:
+    server:
+      build: 
+        context: ./server
+      ports:
+        - "3000:3000"
+    nginx:
+      build: 
+        context: ./nginxconf
+      ports: 
+        - "80:80"

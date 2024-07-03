@@ -1,4 +1,17 @@
+writing the dockerfile
 step 1: made a clone of the repo and stared by adding my notes and index file
-step 2: created a docker file
+step 2: created a docker file and start by specifying where to pull from, in our case use: "FROM nginx:stable-alpine3.17-slim"
 step 3: added stuff into index
-step 4: coppied the index with the copy command in dockerfile and set the source as: challenge1\public\index.html and destination as: /usr/share/nginx/html
+step 4: copied the index with the copy command in dockerfile and set the source as: public and destination as: /usr/share/nginx/html
+
+building dockerfile
+step 5: navigate to the docker-challenge-template\challenge1 
+step 6: build the image with the command "docker build ." (the dot is the current directory)
+step 7: i wanted to rename my tag so i used "docker build -t challange-one ." 
+step 8: use "docker images" to see the docker images 
+
+running dockerfile
+step 9: use docker run -d -p 80:80 and then add the docker image ID grabbed from docker images in my case its 6f5f1e526685 (I later use expose 8080 to make experimenting easier)
+step 9.1: alteratively you can also use CMD in the dockerfile to run these commands for you
+step 10: use docker ps to see the running docker
+step 11: then you can go to your local host and see your webpage running
