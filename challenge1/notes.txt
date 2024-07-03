@@ -1,0 +1,4 @@
+step 1: made a clone of the repo and stared by adding my notes and index file
+step 2: created a docker file
+step 3: added stuff into index
+step 4: coppied the index with the copy command in dockerfile and set the source as: challenge1\public\index.html and destination as: /usr/share/nginx/html
