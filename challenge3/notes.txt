@@ -1,0 +1,35 @@
+start by making a enviroment file for your variables and put these variables in
+{image}
+
+the ones specified as "db" are for the api itself as where the "sql" ones are for the database variables themselves
+{image}
+
+whatever you name as your "host" variable will need to be set as the same thing as the service for the database in the docker-compose file later
+
+these variables will be used when creating a new database connection
+
+now create the docker-compose file
+{image}
+
+in here we will add the services for the api, nginx, and the database.
+{image}
+
+we can see that every build will connect to the folder for the same services under the context section
+{image}
+
+we will set the ports and now most importantly under the database and the api we will have "env_file" linking to the the variables.env file
+{image}
+
+this is what we will use to be able to grab the important variables for the API and the database connection
+
+now we can start the instance and create the containers with "docker-compose up --build"
+
+this will create all the containers and using the compose file run through each instance of their dockerfiles.
+
+for the database it will make a temp environment to create the table with the entry point and for nginx create the new config to reroute the address
+
+now you have everything running and able to display these outputs
+{images}
+
+when typing "docker-compose ps" this is the result
+{image}
