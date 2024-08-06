@@ -2,13 +2,15 @@ services:
   api:
       build: 
         context: ./docker/api
-      ports:
-        - "3000:3000"
+      # ports:
+      #   - "3000:3000"
       env_file:
         - variables.env
   nginx:
       build: 
         context: ./docker/nginx
+      depends_on:
+        - api
       ports: 
         - "80:80"
       
